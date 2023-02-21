@@ -18,6 +18,7 @@ export function SettingsPage () {
         <Button
             title="Reset Game"
             onPress={() => resetGame()}
+            style={defaultStyle.button}
         />
       <StatusBar style="auto"/>
     </View>

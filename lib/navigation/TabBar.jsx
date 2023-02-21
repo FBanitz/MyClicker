@@ -5,12 +5,13 @@ import { StorePage, STORE_PAGE_CONSTS } from "../pages/StorePage";
 import { SettingsPage, SETTINGS_PAGE_CONSTS } from "../pages/SettingsPage";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { APP_PRIMARY_COLOR } from "../styles/colors";
 
 
 const Tab = createBottomTabNavigator();
 
 const TAB_BAR_COLORS = {
-    ACTIVE: "tomato",
+    ACTIVE: APP_PRIMARY_COLOR,
     INACTIVE: "gray",
 }
 
