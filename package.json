@@ -9,9 +9,11 @@
     "web": "npx expo start --web"
   },
   "dependencies": {
+    "@react-native-material/core": "^1.3.7",
     "@react-navigation/bottom-tabs": "^6.5.5",
     "@react-navigation/native": "^6.1.4",
     "expo": "~47.0.12",
+    "expo-av": "~13.0.2",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-native": "0.70.5"
