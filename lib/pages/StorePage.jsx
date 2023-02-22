@@ -31,11 +31,15 @@ export function StorePage () {
   return (
     <View style={defaultStyle.background}>
       <Text>{error}</Text>
-      <Text>Score : {score}</Text>
+      <Text
+      style={defaultStyle.h1}
+      >Score : {score}</Text>
       <Divider 
       color={APP_PRIMARY_COLOR}
       />
-      <Text>Total Power : {totalPower}</Text>
+      <Text
+      style={defaultStyle.h2}
+      >Total Power : {totalPower}</Text>
       <Divider
       color={APP_PRIMARY_COLOR}
       />
