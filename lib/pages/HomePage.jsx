@@ -21,9 +21,6 @@ export function HomePage () {
   return (
     <View style={defaultStyle.background}>
       <Text>{error}</Text>
-      <Text
-      style={defaultStyle.h1}
-      >Score : {score}</Text>
       <TouchableHighlight
         onPress={() => {
           incrementScore();
@@ -34,6 +31,9 @@ export function HomePage () {
         <View
         style= {defaultStyle.touchZoneView}
         >
+          <Text
+          style={defaultStyle.h1}
+          >Score : {score}</Text>
           <Text
           style= {defaultStyle.h2}
           >Add {totalPower}</Text>
