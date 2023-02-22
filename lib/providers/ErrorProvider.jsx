@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import { usePlayError } from './SoundProvider';
 
 const ErrorValue = createContext(null);
 const ErrorSetter = createContext();
@@ -24,9 +25,11 @@ export const useHideError = () => {
 
 export function ErrorProvider ({ children }) {
   const [error, setError] = useState(null);
+  const playErrorSound = usePlayError();
 
   const showError = (error) => {
     setError(error);
+    playErrorSound();
   };
 
   const hideError = () => {

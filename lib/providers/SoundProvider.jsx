@@ -5,15 +5,21 @@ const PlayClick = createContext();
 
 const PlayBuy = createContext();
 
+const PlayError = createContext();
+
 const CLICK_SOUND_FILE = '../../assets/click.wav';
 
 const BUY_SOUND_FILE = '../../assets/buy.wav';
+
+const ERROR_SOUND_FILE = '../../assets/error.wav';
 
 export function SoundProvider({ children }) {
     let clickSoundObject = new Audio.Sound();
     let clickSoundLoaded = false;
     let buySoundObject = new Audio.Sound();
     let buySoundLoaded = false;
+    let errorSoundObject = new Audio.Sound();
+    let errorSoundLoaded = false;
 
     async function play(soundObject) {
         try {
@@ -42,10 +48,21 @@ export function SoundProvider({ children }) {
         play(buySoundObject);
     };
 
+    async function playError () {
+        if (!errorSoundLoaded) {
+            await errorSoundObject.loadAsync(require(ERROR_SOUND_FILE));
+            errorSoundLoaded = true;
+        }
+        play(errorSoundObject);
+    };
+    
+
     return (
         <PlayClick.Provider value={playClick}>
             <PlayBuy.Provider value={playBuy}>
+                <PlayError.Provider value={playError}>
                 {children}
+                </PlayError.Provider>
             </PlayBuy.Provider>
         </PlayClick.Provider>
     );
@@ -58,4 +75,8 @@ export function usePlayClick() {
 
 export function usePlayBuy() {
     return useContext(PlayBuy);
+}
+
+export function usePlayError() {
+    return useContext(PlayError);
 }
