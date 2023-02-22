@@ -54,7 +54,11 @@ export function GameProvider({ children }) {
     const reset = () => {
         setScore(DEFAULT_SCORE_VALUE);
         setPower(DEFAULT_POWER_COUNT);
+        setClickerCount(DEFAULT_CLICKER_COUNT);
+        setSuperPower(DEFAULT_SUPER_POWER_COUNT);
+        setClickerPrice(DEFAULT_CLICKER_PRICE_VALUE);
         setPowerPrice(DEFAULT_POWER_PRICE_VALUE);
+        setSuperPowerPrice(DEFAULT_SUPER_POWER_PRICE_VALUE);
     };
 
     const incrementScore = () => {
