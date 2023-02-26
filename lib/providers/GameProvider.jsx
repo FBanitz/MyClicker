@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, useReducer } from "react";
 import { useShowError, useHideError } from "./ErrorProvider";
-import { usePlayBuy } from "../providers/SoundProvider";
+import { usePlaySound } from "../providers/SoundProvider";
 
 const NOT_ENOUGH_POINTS_ERROR = "Not enough points!";
 
@@ -29,7 +29,7 @@ const GameDispatch = createContext(() => null);
 export function GameProvider({ children }) {
   const showError = useShowError();
   const hideError = useHideError();
-  const playBuy = usePlayBuy();
+  const playSound = usePlaySound();
 
   const [state, dispatch] = useReducer((state, action) => {
     switch (action) {
@@ -43,7 +43,7 @@ export function GameProvider({ children }) {
         try {
           if (state.score < state.clickerPrice) throw new Error(NOT_ENOUGH_POINTS_ERROR);
           hideError();
-          playBuy();
+          playSound("buy");
           return {
             ...state,
             score: state.score - state.clickerPrice,
@@ -59,7 +59,7 @@ export function GameProvider({ children }) {
         try {
           if (state.score < state.powerPrice) throw new Error(NOT_ENOUGH_POINTS_ERROR);
           hideError();
-          playBuy();
+          playSound("buy");
           return {
             ...state,
             score: state.score - state.powerPrice,
@@ -75,7 +75,7 @@ export function GameProvider({ children }) {
         try {
           if (state.score < state.superPowerPrice) throw new Error(NOT_ENOUGH_POINTS_ERROR);
           hideError();
-          playBuy();
+          playSound("buy");
           return {
             ...state,
             score: state.score - state.superPowerPrice,

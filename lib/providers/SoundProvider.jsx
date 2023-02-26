@@ -1,25 +1,30 @@
 import { Audio } from 'expo-av';
 import { createContext, useContext } from 'react';
 
-const PlayClick = createContext();
+const PlaySound = createContext();
 
-const PlayBuy = createContext();
-
-const PlayError = createContext();
-
-const CLICK_SOUND_FILE = '../../assets/click.wav';
-
-const BUY_SOUND_FILE = '../../assets/buy.wav';
-
-const ERROR_SOUND_FILE = '../../assets/error.wav';
+const CLICK_SOUND_FILE = require('../../assets/click.wav');
+const BUY_SOUND_FILE = require('../../assets/buy.wav');
+const ERROR_SOUND_FILE = require('../../assets/error.wav');
 
 export function SoundProvider({ children }) {
-    let clickSoundObject = new Audio.Sound();
-    let clickSoundLoaded = false;
-    let buySoundObject = new Audio.Sound();
-    let buySoundLoaded = false;
-    let errorSoundObject = new Audio.Sound();
-    let errorSoundLoaded = false;
+    const sounds = {
+        buy: {
+            sound: new Audio.Sound(),
+            fileName: BUY_SOUND_FILE,
+            isLoaded:false,
+        },
+        click: {
+            sound: new Audio.Sound(),
+            fileName: CLICK_SOUND_FILE,
+            isLoaded:false,
+        },
+        error: {
+            sound: new Audio.Sound(),
+            fileName: ERROR_SOUND_FILE,
+            isLoaded:false,
+        },
+    }
 
     async function play(soundObject) {
         try {
@@ -32,51 +37,23 @@ export function SoundProvider({ children }) {
         }
     };
 
-    async function playClick () {
-        if (!clickSoundLoaded) {
-            await clickSoundObject.loadAsync(require(CLICK_SOUND_FILE));
-            clickSoundLoaded = true;
+    async function playSound(soundName) {
+        const sound = sounds[soundName];
+        if (!sounds[soundName].isLoaded) {
+            await sound.sound.loadAsync(sound.fileName);
+            sound.isLoaded = true;
         }
-        play(clickSoundObject);
-    };
-
-    async function playBuy () {
-        if (!buySoundLoaded) {
-            await buySoundObject.loadAsync(require(BUY_SOUND_FILE));
-            buySoundLoaded = true;
-        }
-        play(buySoundObject);
-    };
-
-    async function playError () {
-        if (!errorSoundLoaded) {
-            await errorSoundObject.loadAsync(require(ERROR_SOUND_FILE));
-            errorSoundLoaded = true;
-        }
-        play(errorSoundObject);
-    };
-    
+        play(sound.sound);
+    }
 
     return (
-        <PlayClick.Provider value={playClick}>
-            <PlayBuy.Provider value={playBuy}>
-                <PlayError.Provider value={playError}>
-                {children}
-                </PlayError.Provider>
-            </PlayBuy.Provider>
-        </PlayClick.Provider>
+        <PlaySound.Provider value={playSound}>
+            {children}
+        </PlaySound.Provider>
     );
 }
 
 
-export function usePlayClick() {
-    return useContext(PlayClick);
-}
-
-export function usePlayBuy() {
-    return useContext(PlayBuy);
-}
-
-export function usePlayError() {
-    return useContext(PlayError);
+export function usePlaySound() {
+    return useContext(PlaySound);
 }
